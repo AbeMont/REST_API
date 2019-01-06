@@ -1,0 +1,347 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+</head>
+<style>
+    body {
+        /* background: #000; */
+        /* color: lime; */
+        margin: 0;
+        color: #121212;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .background {
+        background: linear-gradient(
+      rgba(0, 0, 0, 0.25), 
+      rgba(0, 0, 0, 0.25)
+        ),url("img/consult.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: blur(0.5px);
+        padding: 150px 0;
+        /* min-height: 250px; */
+        display: block;
+        text-align: center;
+        color: #fff;
+    }
+
+    .background h1 {
+        font-size: 2em;
+    }
+
+    .container {
+        width: 75%;
+        margin: 50px auto;
+    }
+
+    td {
+        border: 1px solid #121212;
+        padding: 8px;
+    }
+
+    .txt {
+        padding: 6px;
+    }
+
+    .btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 8px;
+        border-radius: 5px;
+    }
+
+    .btn:hover {
+        cursor: pointer;
+    }
+
+    .data-section {
+        border:0.5px solid #f4f4f4;
+        box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.5);
+        border-radius: 5px;
+        position: relative;
+        padding: 18px;
+        margin-bottom: 20px;
+        animation-name: show-person;
+        animation-duration: 0.5s;
+    }
+
+    .data-section .data-section__name {
+        text-align: center;
+    }
+
+    .data-section .data-section__info {
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .data-section__info ul {
+        padding: 0;
+        margin-left: 16px;
+    }
+
+    .data-section__info ul li{
+        padding-bottom: 8px;
+        color: #121212;
+        font-family: sans-serif;
+    }
+
+    .data-section__info a {
+        text-decoration: none;
+        font-weight: 500;
+        color: #007bff;
+    }
+
+    .data-section img {
+        width: 100px;
+        border-radius: 60px;
+    }
+
+    .data-section h3 {
+        margin-top: 0;
+    }
+
+    .close {
+        color: #121212;
+        padding: 1px 3px;
+        /* border:1px solid lime; */
+        text-decoration: none;
+        position: absolute;
+        right: 5px;
+        top: 3px;
+    }
+
+    .data-section.remove {
+        animation-name: hide-person;
+        animation-duration: 0.3s;
+        opacity: 0;
+    }
+
+    .light {
+        color: #99979c;
+    }
+
+    @media (min-width:750px){
+        .data-section {
+            display: flex;
+        }
+        .data-section .data-section__name {
+            text-align: inherit;
+            flex:0.4;
+        }
+        .data-section .data-section__info {
+            width: inherit;
+            position: relative;
+            margin: 0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: initial;
+        }
+        .data-section__info a {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    }
+
+    @keyframes show-person {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes hide-person {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+</style>
+
+<body>
+    <section class="background">
+        <h1>Excelsior Recruiting Inc.</h1>
+    </section>
+    <div class="container">
+        <h2>Search Portal</h2>
+        <form>
+            <div class="form-section">
+                <h3>Find individuals by first name. </h3>
+                <input type="text" name="" placeholder="Name" id="name-person" class="txt" value>
+                <input type="button" value="Find People" id="firstname" class="btn">
+            </div>
+        </form>
+
+        <div class="show-info-name">
+            <section id="2643" class="data-section" data-section="Ervin Howell">
+                <div class="data-section__name">
+                    <a href="javascript:void(0)" class="close"><b>X</b></a><h3>Ervin Howell</h3><img src="http://192.168.0.7/img/profile-pics/ervin.jpg">
+                </div>
+                <div class="data-section__info">
+                    <ul>
+                        <li><b>Username:</b> <span class="light">Antonette</span></li>
+                        <li><b>Company:</b> <span class="light">Barclays</span></li>
+                        <li><b>Occupation:</b> <span class="light">Developer</span></li>
+                    </ul>
+                    <a href="#">View Contant Info</a>
+                </div>
+            </section>
+        </div>
+
+        <form>
+            <div class="form-section">
+                <h3>Find individuals by company. </h3>
+                <input type="text" name="" placeholder="Name" id="company-person" class="txt" value>
+                <input type="button" value="Find People" id="company-person" class="btn">
+            </div>
+        </form>
+        
+        <div class="show-info-company"></div>
+
+        <form>
+            <div class="form-section">
+                <h3>Find individuals by occupation. </h3>
+                <input type="text" name="" placeholder="Name" id="occupation-person" class="txt" value>
+                <input type="button" value="Find People" id="occupation-person" class="btn">
+            </div>
+        </form>
+        
+        <div class="show-info-occupation"></div>
+
+        <!-- <img src="http://192.168.0.7/img/profile-pics/abe.jpg" alt=""> -->
+
+    </div>
+    <script>
+        console.log("Data Restful API");
+
+        document.querySelector('#firstname').addEventListener('click', function(){
+
+            let name = document.getElementById('name-person').value.toLowerCase();
+            let sections = undefined;
+
+            console.log(name);
+
+            if(name === ""){
+                alert('Please enter a Name.');
+                return false;
+            } else {
+
+                let request = new XMLHttpRequest();
+
+                let personFound = false;
+
+                request.onreadystatechange = function(){
+
+                    if(request.status === 200 && request.readyState === 4){
+                        var response = JSON.parse(request.responseText);
+                        console.log(response);
+                        console.log(request);
+                        response.forEach((person)=>{
+                            //console.log(person.name.toLowerCase());
+                            let firstName;
+                            if(person.name.toLowerCase().split(' ')[0] == 'mrs.'){
+                                firstName = person.name.toLowerCase().split(' ')[1];
+                            } else {
+                                firstName = person.name.toLowerCase().split(' ')[0];
+                            }
+                            //console.log(firstName);
+                            if(name === firstName){
+                                 if(!document.querySelector(`[data-section="${person.name}"]`)){
+                                    createHtml(person,firstName);
+                                    personFound = true;
+                                    document.getElementById('name-person').value = "";
+                                } else if(document.querySelector(`[data-section="${person.name}"]`)){
+                                    personFound = true;
+                                    // alert(`${person.name} is already Listed`);
+                                    document.getElementById('name-person').value = "";
+                                    return false;
+                                } 
+                                
+                            }
+                        });
+
+                        if(!personFound){
+                            alert(`No such person with the name of ${name} is found on the server`);
+                            document.getElementById('name-person').value = "";
+                        }
+                    }               
+
+                }
+
+                //request.open('GET', 'https://jsonplaceholder.typicode.com/users',true);
+                request.open('GET','http://192.168.0.7/users.json',true);
+                // request.setRequestHeader('Access-Control-Allow-Origin','http://192.168.0.7/');
+                //request.setRequestHeader('Host','192.168.0.7');
+                request.send();
+            }
+            
+        });
+
+        function createHtml(data,name){
+            console.log(data);
+            let section = document.createElement('section');
+            let anchor = document.createElement('a');
+            let span = document.createElement('span');
+            let img = document.createElement('img');
+            let h3 = document.createElement('h3');
+            let randomId = (Math.random() * 9999).toFixed();
+
+            let currentSection = document.querySelector('.show-info-name').appendChild(section);
+            currentSection.id = randomId;
+            currentSection.classList.add('data-section');
+            currentSection.dataset.section = data.name;
+
+            let sectionAnchor = currentSection.appendChild(anchor);
+            anchor.textContent = "X";
+            anchor.href = "javascript:void(0)";
+            anchor.classList.add('close');
+
+            currentSection.appendChild(h3).textContent = data.name;
+            currentSection.appendChild(img).src = data.profilePic;
+
+
+            console.log(currentSection);
+
+            getSections();
+
+        }
+
+        function getSections(){
+            sections = Array.from(document.querySelectorAll('[data-section]'));
+            removeSections(sections);
+        }
+
+        function removeSections(allSections){
+            allSections.forEach((section)=>{            
+                section.children[0].addEventListener('click', ()=>{
+                    section.classList.add('remove');
+                    setTimeout(()=>{
+                        section.remove();
+                    },300);
+                });
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>

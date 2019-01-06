@@ -1,0 +1,298 @@
+<html>
+    <head>
+<title>AJAX (Asynchronous JavaScript And XML)</title>
+    </head>
+    <body>
+        <style>
+            body {
+                background: #000;
+                color: lime;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+            }
+            .container {
+                width: 75%;
+                margin: 50px auto;
+            }
+        td {
+            border: 1px solid lime;
+            padding: 8px;
+        }
+        </style>
+        
+    </body>
+        <div class="container">
+<h1>AJAX (Asynchronous JavaScript And XML)</h1>
+
+            <ul>
+                <li>
+                    <h3>AJAX is a technique used for accessing web servers from a web page.</h3>
+                </li>
+                <li>
+                    <h3>Web applications are able to make quick, incremental updates to the user interface without reloading the entire
+                        browser page</h3>
+                </li>
+                <li>
+                    <h3>
+                        It can send and receive information in various formats, including JSON, XML, HTML, and text files.
+                    </h3>
+                </li>
+                <li>
+                    <h3>AJAX’s most appealing characteristic is its "asynchronous" nature, which means it can communicate with the
+                        server, exchange data, and update the page without having to refresh the page.</h3>
+                </li>
+            </ul>
+            <br>
+            <br>
+
+            <h1>
+                How does it work?
+            </h1>
+            <p></p>
+
+        <h2>Step 1 – Make an HTTP request</h2>
+        <h3>We will create an instance of XMLHttpRequest, a server-side object usable in JavaScript.</h3>
+        <br>
+        <h3>To get data on the server, XMLHttpRequest provides two methods:</h3>
+        <ol>
+            <li>
+                <h3><b>open</b>: create a connection.</h3>
+            </li>
+            <li>
+<h3>send: send a request to the server.</h3>
+            </li>
+        </ol>
+        <br>
+
+<h3>Data furnished by the server will be found in the attributes of the XMLHttpRequest object:</h3>
+<ol>
+    <li>
+<h3>responseXml for an XML file or</h3>
+    </li>
+    <li>
+<h3>responseText for a plain text.</h3>
+    </li>
+</ol>
+<br>
+
+<h3>We have to wait for the data to be available to process it, and in this purpose, the state of availability of data
+    is given by the readyState attribute of XMLHttpRequest.</h3>
+    <br>
+<h3>States of readyState follow (only the last one is really useful):</h3>
+<ol start="0">
+<li>
+    <h3>not initialized.</h3>
+</li>
+<li>
+<h3>connection established.</h3>
+</li>
+<li>
+<h3>request received.</h3>
+</li>
+<li>
+<h3>answer in process.</h3>
+</li>
+<li>
+<h3>4: finished.</h3>
+</li>
+</ol>
+<br>
+<table class="standard-table">
+    <tbody>
+        <tr>
+            <td class="header">Value</td>
+            <td class="header">State</td>
+            <td class="header">Description</td>
+        </tr>
+        <tr>
+            <td><code>0</code></td>
+            <td><code>UNSENT</code></td>
+            <td>Client has been created. <code>open()</code> not called yet.</td>
+        </tr>
+        <tr>
+            <td><code>1</code></td>
+            <td><code>OPENED</code></td>
+            <td><code>open()</code> has been called.</td>
+        </tr>
+        <tr>
+            <td><code>2</code></td>
+            <td><code>HEADERS_RECEIVED</code></td>
+            <td><code>send()</code> has been called, and headers and status are available.</td>
+        </tr>
+        <tr>
+            <td><code>3</code></td>
+            <td><code>LOADING</code></td>
+            <td>Downloading; <code>responseText</code> holds partial data.</td>
+        </tr>
+        <tr>
+            <td><code>4</code></td>
+            <td><code>DONE</code></td>
+            <td>The operation is complete.</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+<br>
+<h2>The XMLHttpRequest object</h2>
+<h3>Allows to interact with the servers, thanks to its methods and attributes.</h3>
+<br>
+<h3>Attributes</h3>
+
+<table>
+    <tbody>
+        <tr>
+            <td width="187"><b>readyState</b></td>
+            <td width="501">
+                <div align="left">the code successively changes value from 0 to 4 that means
+                    for "ready".</div>
+            </td>
+        </tr>
+        <tr>
+            <td width="187"><b>status</b></td>
+            <td width="501">
+                <div align="left">200 is OK<br>
+                    404 if the page is not found.</div>
+            </td>
+        </tr>
+        <tr>
+            <td width="187"><b>responseText</b></td>
+            <td width="501">
+                <div align="left">holds loaded data as a string of characters.</div>
+            </td>
+        </tr>
+        <tr>
+            <td width="187"><b>responseXml</b></td>
+            <td width="501">
+                <div align="left">holds an XML loaded file, DOM's method allows to extract data.</div>
+            </td>
+        </tr>
+        <tr>
+            <td width="187" height="8"><b>onreadystatechange</b></td>
+            <td width="501" height="8">
+                <div align="left">property that takes a function as value that is
+                    invoked when the readystatechange event is dispatched.</div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<h3>Methods</h3>
+<table>
+    <tbody>
+        <tr>
+            <td width="185"><b>open</b>(mode, url, boolean)</td>
+            <td width="503">
+                <div align="left">mode: type of request, GET or POST<br>
+                    url: the location of the file, with a path.<br>
+                    boolean: true (asynchronous) / false (synchronous).<br>
+                    optionally, a login and a password may be added to arguments.</div>
+            </td>
+        </tr>
+        <tr>
+            <td width="185" height="2"><b>send</b>("string") </td>
+            <td width="503" height="2">
+                <div align="left">null for a GET command.</div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+    <br>
+    <br>
+
+    <input type="button" value="Hello" id="ajaxButton">
+
+    <br>
+    <br>
+    <input type="text" name="" id="dataSend">
+    <input type="button" id="sendButton" value="Send Data">
+
+        </div>
+    <script>
+        console.log("AJAX TEST");
+
+    ////////////////
+    // 'GET' Method
+    ///////////////
+
+    document.getElementById("ajaxButton").addEventListener('click', processData);
+   
+
+    function processData() {
+
+        // Process the server response here.
+
+        // Step 1. Create http request
+
+        var xhttp = new XMLHttpRequest();
+   
+    // Step 2. Handling the server response
+    // What should this function do? First, the function needs to check the request's state.
+    // Below, onreadystatechange is an event handler and uses a function that notifies
+    // or invokes when a change happens. MUST BE USED IN AJAX!!!
+
+    xhttp.onreadystatechange = function() {
+
+        /////////////////////////////
+        // HTTP Request: Ready States
+        ///////////////////////////
+
+        if(xhttp.readyState === 1){
+            console.log(xhttp.readyState + ': open() has been called. Server connection established and packages what your request wants.');
+        } else if(xhttp.readyState === 2) {
+            console.log(xhttp.readyState +': send() has been called. The Package is sent. Request received by Server. HTTP Status now ' + xhttp.status);
+        } else if (xhttp.readyState === 3) {
+            console.log(xhttp.readyState +': Processing request');
+        } else if (xhttp.readyState === 4) {
+            console.log(xhttp.readyState +': The operation is complete. Request finished and response is ready');
+        }
+
+        alert("Ready State is at: " + xhttp.readyState);
+
+
+        /////////////////////////////////
+        // HTTP Request: Status (w/codes)
+        ///////////////////////////////
+
+        console.log('HTTP request status: '+ xhttp.status);
+
+        if (xhttp.status === 200) {
+            console.log(xhttp.readyState+": The request has succeeded. Proceeding...");
+        }
+
+            try {
+
+                // If the state has the value of XMLHttpRequest.DONE (corresponding to 4), that means
+                // that the full server response was received and it's OK for you to continue processing it.
+
+                if (xhttp.readyState === XMLHttpRequest.DONE && xhttp.status === 200) {
+                    console.log('The response was received and finsihed.');
+                    console.log(xhttp);
+                    console.log(xhttp.responseText);
+                    
+                    // We Parse the data to access its values
+
+                    var response = JSON.parse(xhttp.responseText);
+                    console.log(response);
+                    console.log(response.name);
+
+                }
+            } catch( e ) {
+                alert('Caught Exception: ' + e.description);
+            }
+
+    }
+        
+        xhttp.open('GET', 'test.json',true);
+        xhttp.send();
+
+    }
+        
+    </script>
+</html>

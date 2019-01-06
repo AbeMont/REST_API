@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fetch API</title>
+</head>
+<style>
+    body {
+        background: #000;
+        color: lime;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    }
+
+    .container {
+        width: 75%;
+        margin: 50px auto;
+    }
+
+    td {
+        border: 1px solid lime;
+        padding: 8px;
+    }
+</style>
+<body>
+    <div class="container">
+<h2>The Fetch API provides a JavaScript interface for accessing and manipulating parts of the HTTP pipeline, such as
+    requests and responses. It also provides a global fetch() method that provides an easy, logical way to fetch
+    resources asynchronously across the network.</h2>
+    </div>
+    <script>    
+        console.log('Fetch API');
+
+        fetch('test.json')
+        .then(function(response){
+            return response.json()
+        }).
+        then(function(myJson){
+            console.log(myJson);
+        });
+
+    </script>
+</body>
+</html>
