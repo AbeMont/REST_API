@@ -190,21 +190,7 @@
             </div>
         </form>
 
-        <div class="show-info-name">
-            <section id="2643" class="data-section" data-section="Ervin Howell">
-                <div class="data-section__name">
-                    <a href="javascript:void(0)" class="close"><b>X</b></a><h3>Ervin Howell</h3><img src="http://192.168.0.7/img/profile-pics/ervin.jpg">
-                </div>
-                <div class="data-section__info">
-                    <ul>
-                        <li><b>Username:</b> <span class="light">Antonette</span></li>
-                        <li><b>Company:</b> <span class="light">Barclays</span></li>
-                        <li><b>Occupation:</b> <span class="light">Developer</span></li>
-                    </ul>
-                    <a href="#">View Contant Info</a>
-                </div>
-            </section>
-        </div>
+        <div class="show-info-name"></div>
 
         <form>
             <div class="form-section">
@@ -299,9 +285,13 @@
             console.log(data);
             let section = document.createElement('section');
             let anchor = document.createElement('a');
+            let anchorInfo = document.createElement('a');
             let span = document.createElement('span');
             let img = document.createElement('img');
+            let divName = document.createElement('div');
+            let divInfo = document.createElement('div');
             let h3 = document.createElement('h3');
+            let ul = document.createElement('ul');
             let randomId = (Math.random() * 9999).toFixed();
 
             let currentSection = document.querySelector('.show-info-name').appendChild(section);
@@ -309,13 +299,54 @@
             currentSection.classList.add('data-section');
             currentSection.dataset.section = data.name;
 
-            let sectionAnchor = currentSection.appendChild(anchor);
+            let nameSection = currentSection.appendChild(divName);
+            nameSection.classList.add('data-section__name');
+
+            let infoSection = currentSection.appendChild(divInfo);
+            infoSection.classList.add('data-section__info');
+
+            let sectionAnchor = nameSection.appendChild(anchor);
             anchor.textContent = "X";
             anchor.href = "javascript:void(0)";
             anchor.classList.add('close');
 
-            currentSection.appendChild(h3).textContent = data.name;
-            currentSection.appendChild(img).src = data.profilePic;
+            nameSection.appendChild(h3).textContent = data.name;
+            nameSection.appendChild(img).src = data.profilePic;
+
+            let infoUl = infoSection.appendChild(ul);
+
+            let companyInfo = [
+                {"Username":data.username},
+                {"Company":data.company.name},
+                {"Occupation":data.company.occupation}
+            ];
+
+            companyInfo.forEach((listItem)=>{
+                let li = document.createElement('li');
+                let b = document.createElement('b');
+                let span = document.createElement('span');
+                
+                let generatedLi = infoUl.appendChild(li);
+
+                for(let prop in listItem){
+
+                    let boldDesc = generatedLi.appendChild(b);
+                    boldDesc.textContent = prop + ": ";
+
+                    let value = generatedLi.appendChild(span);
+                    value.classList.add('light');
+                    value.textContent = listItem[prop];
+                }
+
+            });
+
+            let contactAnchor = infoSection.appendChild(anchorInfo);
+            contactAnchor.href = "#";
+            contactAnchor.textContent = "View Contant Info";
+
+
+
+            console.log(companyInfo);
 
 
             console.log(currentSection);
