@@ -1,8 +1,10 @@
-console.log("Data Restful API");
+console.log("Data Rest API");
 
-document.querySelector('#person').addEventListener('click', function () {
+// Find Individuals by Name
 
-    let name = document.getElementById('name').value.toLowerCase();
+document.querySelector('#firstname').addEventListener('click', function () {
+
+    let name = document.getElementById('name-person').value.toLowerCase();
     let sections = undefined;
 
     console.log(name);
@@ -32,14 +34,14 @@ document.querySelector('#person').addEventListener('click', function () {
                     }
                     //console.log(firstName);
                     if (name === firstName) {
-                        if (!document.querySelector(`[data-section="${person.name}"]`)) {
-                            createHtml(person, firstName);
+                        if (!document.querySelector(`[data-section="${person.name} name"]`)) {
+                            createHtml(person, firstName, 'name');
                             personFound = true;
-                            document.getElementById('name').value = "";
-                        } else if (document.querySelector(`[data-section="${person.name}"]`)) {
+                            document.getElementById('name-person').value = "";
+                        } else if (document.querySelector(`[data-section="${person.name} name"]`)) {
                             personFound = true;
-                            alert('Person is already Listed');
-                            document.getElementById('name').value = "";
+                            // alert(`${person.name} is already Listed`);
+                            document.getElementById('name-person').value = "";
                             return false;
                         }
 
@@ -48,7 +50,7 @@ document.querySelector('#person').addEventListener('click', function () {
 
                 if (!personFound) {
                     alert(`No such person with the name of ${name} is found on the server`);
-                    document.getElementById('name').value = "";
+                    document.getElementById('name-person').value = "";
                 }
             }
 
@@ -63,27 +65,129 @@ document.querySelector('#person').addEventListener('click', function () {
 
 });
 
-function createHtml(data, name) {
+// Get by Company
+
+document.querySelector('#company-btn').addEventListener('click', () => {
+
+    let company = document.getElementById('company-person').value.toLowerCase();
+    let companyFound = false;
+
+    console.log(company);
+
+    if (company === "") {
+        alert("Please enter a company name.");
+        return false;
+    } else {
+
+        let http = new XMLHttpRequest();
+
+        http.onreadystatechange = () => {
+            if (http.status === 200 && http.readyState === 4) {
+                let data = JSON.parse(http.responseText);
+                console.log(data);
+                data.forEach((person) => {
+                    let companyName = person.company.name;
+                    if (companyName === company) {
+                        console.log(person);
+                        if (document.querySelector(`[data-section="${person.name} company"]`)) {
+                            document.getElementById('company-person').value = "";
+                            companyFound = true;
+                            return false;
+                        } else if (!document.querySelector(`[data-section="${person.name} company"]`)) {
+                            createHtml(person, person.name, 'company');
+                            document.getElementById('company-person').value = "";
+                            companyFound = true;
+                        }
+                    }
+                });
+                if (!companyFound) {
+                    alert(`No company with the name of ${company} is found in the server.`);
+                    document.getElementById('company-person').value = "";
+                }
+            }
+        }
+
+        http.open('GET', 'http://192.168.0.7/users.json', true);
+        http.send();
+
+    }
+
+
+
+});
+
+function createHtml(data, name, value) {
+    this.value = value;
     console.log(data);
     let section = document.createElement('section');
     let anchor = document.createElement('a');
+    let anchorInfo = document.createElement('a');
     let span = document.createElement('span');
     let img = document.createElement('img');
+    let divName = document.createElement('div');
+    let divInfo = document.createElement('div');
     let h3 = document.createElement('h3');
+    let ul = document.createElement('ul');
     let randomId = (Math.random() * 9999).toFixed();
 
-    let currentSection = document.querySelector('.show-info').appendChild(section);
+    let currentSection = document.querySelector('.show-info-' + this.value).appendChild(section);
     currentSection.id = randomId;
     currentSection.classList.add('data-section');
-    currentSection.dataset.section = data.name;
+    currentSection.dataset.section = `${data.name} ${this.value}`; // Add new value here
 
-    let sectionAnchor = currentSection.appendChild(anchor);
+    let nameSection = currentSection.appendChild(divName);
+    nameSection.classList.add('data-section__name');
+
+    let infoSection = currentSection.appendChild(divInfo);
+    infoSection.classList.add('data-section__info');
+
+    let sectionAnchor = nameSection.appendChild(anchor);
     anchor.textContent = "X";
     anchor.href = "javascript:void(0)";
     anchor.classList.add('close');
 
-    currentSection.appendChild(h3).textContent = data.name;
-    currentSection.appendChild(img).src = data.profilePic;
+    nameSection.appendChild(h3).textContent = data.name;
+    nameSection.appendChild(img).src = data.profilePic;
+
+    let infoUl = infoSection.appendChild(ul);
+
+    let companyInfo = [{
+            "Username": data.username
+        },
+        {
+            "Company": data.company.name
+        },
+        {
+            "Occupation": data.company.occupation
+        }
+    ];
+
+    companyInfo.forEach((listItem) => {
+        let li = document.createElement('li');
+        let b = document.createElement('b');
+        let span = document.createElement('span');
+
+        let generatedLi = infoUl.appendChild(li);
+
+        for (let prop in listItem) {
+
+            let boldDesc = generatedLi.appendChild(b);
+            boldDesc.textContent = prop + ": ";
+
+            let value = generatedLi.appendChild(span);
+            value.classList.add('light');
+            value.textContent = listItem[prop];
+        }
+
+    });
+
+    let contactAnchor = infoSection.appendChild(anchorInfo);
+    contactAnchor.href = "#";
+    contactAnchor.textContent = "View Contant Info";
+
+
+
+    console.log(companyInfo);
 
 
     console.log(currentSection);
@@ -100,7 +204,10 @@ function getSections() {
 function removeSections(allSections) {
     allSections.forEach((section) => {
         section.children[0].addEventListener('click', () => {
-            section.remove();
+            section.classList.add('remove');
+            setTimeout(() => {
+                section.remove();
+            }, 300);
         });
     });
 }
