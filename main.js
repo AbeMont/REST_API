@@ -116,6 +116,62 @@ document.querySelector('#company-btn').addEventListener('click', () => {
 
 });
 
+// Get by occupation
+document.getElementById('occupation-btn').addEventListener('click', () => {
+
+    let value = document.querySelector('#occupation-person').value;
+    let occupationFound = false;
+
+    console.log(value);
+
+    if (value == '') {
+        alert('Please enter an occupation');
+        return false;
+    } else {
+
+        let http = new XMLHttpRequest();
+
+        http.onreadystatechange = () => {
+            if (http.status === 200 && http.readyState === 4) {
+                let data = JSON.parse(http.responseText);
+                console.log(data);
+                data.forEach((person) => {
+                    let occupation = person.company.occupation;
+                    console.log(occupation);
+                    if (occupation === value) {
+                        console.log(person);
+                        if (!document.querySelector(` [data-section ="${person.name} occupation"] `)) {
+                            occupationFound = true;
+                            document.querySelector('#occupation-person').value = '';
+                            createHtml(person, person.name, 'occupation');
+                        } else if (document.querySelector(` [data-section ="${person.name} occupation"] `)) {
+                            occupationFound = true;
+                            document.querySelector('#occupation-person').value = '';
+                        }
+                    } else {
+                        return false;
+                    }
+
+                });
+
+                console.log(occupationFound);
+
+                if (!occupationFound) {
+                    alert('Please enter a valid Occupation.');
+                    document.querySelector('#occupation-person').value = '';
+                }
+
+            }
+        }
+
+        http.open('GET', 'http://192.168.0.7/users.json', true);
+        http.send();
+
+    }
+
+});
+
+
 function createHtml(data, name, value) {
     this.value = value;
     console.log(data);
@@ -151,15 +207,10 @@ function createHtml(data, name, value) {
 
     let infoUl = infoSection.appendChild(ul);
 
-    let companyInfo = [{
-            "Username": data.username
-        },
-        {
-            "Company": data.company.name
-        },
-        {
-            "Occupation": data.company.occupation
-        }
+    let companyInfo = [
+        { "Username": data.username },
+        { "Company": data.company.name },
+        { "Occupation": data.company.occupation }
     ];
 
     companyInfo.forEach((listItem) => {
