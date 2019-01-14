@@ -147,6 +147,49 @@
         flex-direction: column-reverse;
     }
 
+    .loader,
+    .loader:after {
+        border-radius: 50%;
+        width: 10em;
+        height: 10em;
+        }
+    .loader {
+        margin: 0 auto;
+        font-size: 10px;
+        position: relative;
+        text-indent: -9999em;
+        border-top: 1.1em solid #007bff;
+        border-right: 1.1em solid #007bff;
+        border-bottom: 1.1em solid #007bff;
+        border-left: 1.1em solid #d4d4d4;
+        -webkit-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-animation: load8 1.1s infinite linear;
+        animation: load8 1.1s infinite linear;
+    }
+    @-webkit-keyframes load8 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+        }
+        @keyframes load8 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+
     @media (min-width:750px){
         .data-section {
             display: flex;
@@ -205,7 +248,9 @@
             </div>
         </form>
 
-        <div class="show-info-name"></div>
+        <div class="show-info-name">
+            <div class="loader"></div>
+        </div>
 
         <form>
             <div class="form-section">
@@ -251,6 +296,8 @@
                 let personFound = false;
 
                 request.onreadystatechange = function(){
+
+                    console.log(request);
 
                     if(request.status === 200 && request.readyState === 4){
                         var response = JSON.parse(request.responseText);
@@ -347,6 +394,62 @@
             
 
         });
+
+        // Get by occupation
+        document.getElementById('occupation-btn').addEventListener('click', ()=>{
+
+            let value = document.querySelector('#occupation-person').value;
+            let occupationFound = false;
+
+            console.log(value);
+
+            if(value == ''){
+                alert('Please enter an occupation');
+                return false;
+            } else {
+
+                let http = new XMLHttpRequest();
+
+                http.onreadystatechange = ()=>{
+                    if(http.status === 200 && http.readyState === 4){
+                        let data = JSON.parse(http.responseText);
+                        console.log(data);
+                        data.forEach((person)=>{
+                            let occupation = person.company.occupation;
+                            console.log(occupation);
+                            if(occupation === value){
+                                console.log(person);
+                                if(!document.querySelector(` [data-section ="${person.name} occupation"] `)){
+                                    occupationFound = true;
+                                    document.querySelector('#occupation-person').value = '';
+                                    createHtml(person, person.name, 'occupation');
+                                } else if(document.querySelector(` [data-section ="${person.name} occupation"] `)){
+                                    occupationFound = true;
+                                    document.querySelector('#occupation-person').value = '';
+                                }
+                            } else {
+                                return false;
+                            }
+
+                        });
+
+                        console.log(occupationFound);
+
+                        if (!occupationFound) {
+                            alert('Please enter a valid Occupation.');
+                            document.querySelector('#occupation-person').value ='';
+                        }
+
+                    }
+                }
+
+                http.open('GET','http://192.168.0.7/users.json',true);
+                http.send();
+
+            }
+
+        });
+
 
         function createHtml(data,name,value){
             this.value = value;
