@@ -20,6 +20,8 @@ document.querySelector('#firstname').addEventListener('click', function () {
 
         request.onreadystatechange = function () {
 
+            console.log(request);
+
             if (request.status === 200 && request.readyState === 4) {
                 var response = JSON.parse(request.responseText);
                 console.log(response);
@@ -48,6 +50,10 @@ document.querySelector('#firstname').addEventListener('click', function () {
                     }
                 });
 
+                let modalLinks = Array.from(document.querySelectorAll('[data-open-modal]'));
+                console.log(modalLinks)
+                modalInfo(modalLinks);
+
                 if (!personFound) {
                     alert(`No such person with the name of ${name} is found on the server`);
                     document.getElementById('name-person').value = "";
@@ -57,7 +63,8 @@ document.querySelector('#firstname').addEventListener('click', function () {
         }
 
         //request.open('GET', 'https://jsonplaceholder.typicode.com/users',true);
-        request.open('GET', 'http://192.168.0.7/users.json', true);
+        //request.open('GET','http://192.168.0.7/users.json',true);
+        request.open('GET', './users.json', true);
         // request.setRequestHeader('Access-Control-Allow-Origin','http://192.168.0.7/');
         //request.setRequestHeader('Host','192.168.0.7');
         request.send();
@@ -100,6 +107,10 @@ document.querySelector('#company-btn').addEventListener('click', () => {
                         }
                     }
                 });
+
+                let modalLinks = Array.from(document.querySelectorAll('[data-open-modal]'));
+                modalInfo(modalLinks);
+
                 if (!companyFound) {
                     alert(`No company with the name of ${company} is found in the server.`);
                     document.getElementById('company-person').value = "";
@@ -107,7 +118,8 @@ document.querySelector('#company-btn').addEventListener('click', () => {
             }
         }
 
-        http.open('GET', 'http://192.168.0.7/users.json', true);
+        // http.open('GET','http://192.168.0.7/users.json',true);
+        http.open('GET', './users.json', true);
         http.send();
 
     }
@@ -154,7 +166,8 @@ document.getElementById('occupation-btn').addEventListener('click', () => {
 
                 });
 
-                console.log(occupationFound);
+                let modalLinks = Array.from(document.querySelectorAll('[data-open-modal]'));
+                modalInfo(modalLinks);
 
                 if (!occupationFound) {
                     alert('Please enter a valid Occupation.');
@@ -164,12 +177,105 @@ document.getElementById('occupation-btn').addEventListener('click', () => {
             }
         }
 
-        http.open('GET', 'http://192.168.0.7/users.json', true);
+        // http.open('GET','http://192.168.0.7/users.json',true);
+        http.open('GET', './users.json', true);
         http.send();
 
     }
 
 });
+
+////////////////
+// Modal
+/////////////
+
+document.querySelector('.modal__close').addEventListener('click', () => {
+    removeModal();
+});
+
+window.onclick = (e) => {
+    if (e.target === document.querySelector('.modal')) {
+        removeModal();
+    }
+}
+
+function removeModal() {
+
+    document.querySelector('.modal__body').classList.add('remove');
+    setTimeout(() => {
+        document.querySelector('.modal').classList.remove('active');
+        document.querySelector('.modal__body').classList.remove('remove');
+    }, 300);
+
+    // Clear Modal Information
+
+    let modalUl = Array.from(document.querySelectorAll('.modal ul'));
+    let ulEl = document.querySelector('.modal ul');
+    let modalChildren = Array.from(modalUl[0].children);
+
+    for (let i = 0; i < modalChildren.length; i++) {
+        ulEl.removeChild(modalChildren[i]);
+    }
+
+}
+
+function modalInfo(linksArr) {
+    // Modal Query
+
+    let array = linksArr;
+
+    for (let i = 0; i < linksArr.length; i++) {
+        linksArr[i].addEventListener("click", () => {
+
+            let anchorName = linksArr[i].dataset.openModal;
+            let http = new XMLHttpRequest();
+
+            http.onreadystatechange = () => {
+                if (http.status === 200 && http.readyState === 4) {
+                    let data = JSON.parse(http.responseText);
+
+                    data.forEach((person) => {
+                        if (person.name === anchorName) {
+                            console.log(person);
+
+                            let modal = document.querySelector('.modal');
+                            let modalTitle = document.querySelector('.modal h1');
+                            let modalImg = document.querySelector('.modal img');
+                            let modalUl = document.querySelector('.modal ul');
+
+                            let contactInfo = {
+                                email: person.email,
+                                address: person.address,
+                                phoneNumber: person.phone,
+                                website: person.website
+                            };
+
+                            modalImg.src = person.profilePic;
+                            modalTitle.textContent = person.name;
+                            modal.classList.add('active');
+
+                            for (let prop in contactInfo) {
+                                let li = document.createElement('li');
+                                let liInfo = modalUl.appendChild(li);
+                                if (prop === 'address') {
+                                    console.log(person.address);
+                                    liInfo.textContent = `${person.address.street} .St, ${person.address.suite} ${person.address.city}, ${person.address.zipcode}`;
+                                } else {
+                                    liInfo.textContent = contactInfo[prop];
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+            http.open('GET', './users.json', true);
+            http.send();
+
+
+        });
+    }
+}
 
 
 function createHtml(data, name, value) {
@@ -207,10 +313,15 @@ function createHtml(data, name, value) {
 
     let infoUl = infoSection.appendChild(ul);
 
-    let companyInfo = [
-        { "Username": data.username },
-        { "Company": data.company.name },
-        { "Occupation": data.company.occupation }
+    let companyInfo = [{
+            "Username": data.username
+        },
+        {
+            "Company": data.company.name
+        },
+        {
+            "Occupation": data.company.occupation
+        }
     ];
 
     companyInfo.forEach((listItem) => {
@@ -233,17 +344,15 @@ function createHtml(data, name, value) {
     });
 
     let contactAnchor = infoSection.appendChild(anchorInfo);
-    contactAnchor.href = "#";
+    contactAnchor.href = "javascript:void(0)";
+    contactAnchor.dataset.openModal = data.name;
     contactAnchor.textContent = "View Contant Info";
-
-
-
-    console.log(companyInfo);
 
 
     console.log(currentSection);
 
     getSections();
+    modalInfo(currentSection, data);
 
 }
 
