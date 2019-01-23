@@ -22,6 +22,8 @@ document.querySelector('#firstname').addEventListener('click', function () {
 
             console.log(request);
 
+            loadSpinner(request, '.show-info-name');
+
             if (request.status === 200 && request.readyState === 4) {
                 var response = JSON.parse(request.responseText);
                 console.log(response);
@@ -89,6 +91,9 @@ document.querySelector('#company-btn').addEventListener('click', () => {
         let http = new XMLHttpRequest();
 
         http.onreadystatechange = () => {
+
+            loadSpinner(http, '.show-info-company');
+
             if (http.status === 200 && http.readyState === 4) {
                 let data = JSON.parse(http.responseText);
                 console.log(data);
@@ -144,6 +149,9 @@ document.getElementById('occupation-btn').addEventListener('click', () => {
         let http = new XMLHttpRequest();
 
         http.onreadystatechange = () => {
+
+            loadSpinner(http,'.show-info-occupation');
+
             if (http.status === 200 && http.readyState === 4) {
                 let data = JSON.parse(http.responseText);
                 console.log(data);
@@ -221,10 +229,10 @@ function removeModal() {
 
 function modalInfo(linksArr) {
     // Modal Query
-
-    let array = linksArr;
+    console.log(linksArr);
 
     for (let i = 0; i < linksArr.length; i++) {
+        console.log(linksArr[i]);
         linksArr[i].addEventListener("click", () => {
 
             let anchorName = linksArr[i].dataset.openModal;
@@ -254,16 +262,23 @@ function modalInfo(linksArr) {
                             modalTitle.textContent = person.name;
                             modal.classList.add('active');
 
-                            for (let prop in contactInfo) {
-                                let li = document.createElement('li');
-                                let liInfo = modalUl.appendChild(li);
-                                if (prop === 'address') {
-                                    console.log(person.address);
-                                    liInfo.textContent = `${person.address.street} .St, ${person.address.suite} ${person.address.city}, ${person.address.zipcode}`;
-                                } else {
-                                    liInfo.textContent = contactInfo[prop];
+                            let ulChildren = Array.from(document.querySelectorAll('.modal ul'));
+
+                            if (ulChildren[0].children.length >= 4){
+                                return false;
+                            } else {
+                                for (let prop in contactInfo) {
+                                    let li = document.createElement('li');
+                                    let liInfo = modalUl.appendChild(li);
+                                    if (prop === 'address') {
+                                        liInfo.textContent = `${person.address.street} .St, ${person.address.suite} ${person.address.city}, ${person.address.zipcode}`;
+                                    } else {
+                                        liInfo.textContent = contactInfo[prop];
+                                    }
                                 }
                             }
+
+                         
                         }
                     });
                 }
@@ -370,4 +385,13 @@ function removeSections(allSections) {
             }, 300);
         });
     });
+}
+
+function loadSpinner(httpReq,section){
+    if (httpReq.status === 200) {
+        document.querySelector(`${section} .loader-container`).classList.add('show');
+        setTimeout(() => {
+            document.querySelector(`${section} .loader-container`).classList.remove('show');
+        }, 900);
+    }
 }
