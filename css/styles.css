@@ -45,7 +45,11 @@
         color: #fff;
         border: none;
         padding: 8px;
-        border-radius: 5px;
+    }
+
+    select {
+        padding: 6px;
+        border-radius:5px;
     }
 
     .btn:hover {
