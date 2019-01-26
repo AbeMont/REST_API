@@ -3,7 +3,7 @@
         "id": 1,
         "name": "Leanne Graham",
         "username": "Bret",
-        "profilePic": "http://192.168.0.7/img/profile-pics/Leanne.jpg",
+        "profilePic": "./img/profile-pics/Leanne.jpg",
         "email": "Sincere@april.biz",
         "address": {
             "street": "Kulas Light",
@@ -28,7 +28,7 @@
         "id": 2,
         "name": "Ervin Howell",
         "username": "Antonette",
-        "profilePic": "http://192.168.0.7/img/profile-pics/ervin.jpg",
+        "profilePic": "./img/profile-pics/ervin.jpg",
         "email": "Shanna@melissa.tv",
         "address": {
             "street": "Victor Plains",
@@ -53,7 +53,7 @@
         "id": 3,
         "name": "Clementine Bauch",
         "username": "Samantha",
-        "profilePic": "http://192.168.0.7/img/profile-pics/clementine.jpg",
+        "profilePic": "./img/profile-pics/clementine.jpg",
         "email": "Nathan@yesenia.net",
         "address": {
             "street": "Douglas Extension",
@@ -78,7 +78,7 @@
         "id": 4,
         "name": "Patricia Lebsack",
         "username": "Karianne",
-        "profilePic": "http://192.168.0.7/img/profile-pics/patricia.jpg",
+        "profilePic": "./img/profile-pics/patricia.jpg",
         "email": "Julianne.OConner@kory.org",
         "address": {
             "street": "Hoeger Mall",
@@ -103,7 +103,7 @@
         "id": 5,
         "name": "Chelsey Dietrich",
         "username": "Kamren",
-        "profilePic": "http://192.168.0.7/img/profile-pics/chelsey.jpg",
+        "profilePic": "./img/profile-pics/chelsey.jpg",
         "email": "Lucio_Hettinger@annie.ca",
         "address": {
             "street": "Skiles Walks",
@@ -128,7 +128,7 @@
         "id": 6,
         "name": "Mrs. Dennis Schulist",
         "username": "Leopoldo_Corkery",
-        "profilePic": "http://192.168.0.7/img/profile-pics/dennis.jpg",
+        "profilePic": "./img/profile-pics/dennis.jpg",
         "email": "Karley_Dach@jasper.info",
         "address": {
             "street": "Norberto Crossing",
@@ -153,7 +153,7 @@
         "id": 7,
         "name": "Kurtis Weissnat",
         "username": "Elwyn.Skiles",
-        "profilePic": "http://192.168.0.7/img/profile-pics/Kurtis.jpg",
+        "profilePic": "./img/profile-pics/Kurtis.jpg",
         "email": "Telly.Hoeger@billy.biz",
         "address": {
             "street": "Rex Trail",
@@ -178,7 +178,7 @@
         "id": 8,
         "name": "Nicholas Runolfsdottir V",
         "username": "Maxime_Nienow",
-        "profilePic": "http://192.168.0.7/img/profile-pics/nicholas.jpg",
+        "profilePic": "./img/profile-pics/nicholas.jpg",
         "email": "Sherwood@rosamond.me",
         "address": {
             "street": "Ellsworth Summit",
@@ -203,7 +203,7 @@
         "id": 9,
         "name": "Glenna Reichert",
         "username": "Delphine",
-        "profilePic": "http://192.168.0.7/img/profile-pics/glenna.jpg",
+        "profilePic": "./img/profile-pics/glenna.jpg",
         "email": "Chaim_McDermott@dana.io",
         "address": {
             "street": "Dayna Park",
@@ -228,7 +228,7 @@
         "id": 10,
         "name": "Clementina DuBuque",
         "username": "Moriah.Stanton",
-        "profilePic": "http://192.168.0.7/img/profile-pics/clementina.jpg",
+        "profilePic": "./img/profile-pics/clementina.jpg",
         "email": "Rey.Padberg@karina.biz",
         "address": {
             "street": "Kattie Turnpike",
@@ -252,7 +252,7 @@
         "id": 11,
         "name": "Ervin Smith",
         "username": "Ervinster",
-        "profilePic": "http://192.168.0.7/img/profile-pics/ervin2.jpg",
+        "profilePic": "./img/profile-pics/ervin2.jpg",
         "email": "Ervin@sgta.tv",
         "address": {
             "street": "Royal",

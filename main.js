@@ -201,47 +201,48 @@ var UIController = {
     generateDropdowns: function (arr) {
 
         arr.forEach((parameter,index)=>{
-            setTimeout(()=>{
+            // setTimeout(()=>{
                 this.parameter = parameter;
                 //console.log(this.parameter)
                 let http = new XMLHttpRequest();
 
                 http.onreadystatechange = () => {
 
-                    if (http.status === 200 && http.readyState === 4) {
-                        let data = JSON.parse(http.responseText);
-                        let paramerters = [];
-                        //console.log(paramerters)
-                        let allParameters = data.map((person) => {
-                            return person.company[this.parameter];
-                        });
-                        // console.log(allParameters)
-                        allParameters.forEach((item) => {
-                            if (!paramerters.length) {
-                                paramerters.push(item);
-                            } else {
-                                if (paramerters.indexOf(item) === -1) {
+                        if (http.status === 200 && http.readyState === 4) {
+                            let data = JSON.parse(http.responseText);
+                            let paramerters = [];
+                            //console.log(paramerters)
+                            let allParameters = data.map((person) => {
+                                return person.company[this.parameter];
+                            });
+                            //console.log(allParameters)
+                            allParameters.forEach((item) => {
+                                if (!paramerters.length) {
                                     paramerters.push(item);
+                                } else {
+                                    if (paramerters.indexOf(item) === -1) {
+                                        paramerters.push(item);
+                                    }
                                 }
-                            }
-                        });
-                        //console.log(paramerters);
+                            });
+                            //console.log(paramerters);
 
-                        let parameterDropdown = document.getElementById(this.parameter + '-dropdown');
-                        //console.log(parameterDropdown)
-                        paramerters.forEach((item) => {
-                            let option = document.createElement('option');
-                            let panel = parameterDropdown.appendChild(option);
-                            panel.textContent = item;
-                            panel.value = item;
-                            panel.dataset[this.parameter] = '';
-                        });
-                    }
+                            let parameterDropdown = document.getElementById(this.parameter + '-dropdown');
+                            //console.log(parameterDropdown)
+                            paramerters.forEach((item) => {
+                                let option = document.createElement('option');
+                                let panel = parameterDropdown.appendChild(option);
+                                panel.textContent = item;
+                                panel.value = item;
+                                panel.dataset[this.parameter] = '';
+                            });
+                        }
+
                 }
 
-                http.open('GET', './users.json', true);
+                http.open('GET', './users.json',false);
                 http.send();
-            },100*index);
+            // },100*index);
         });
 
 
